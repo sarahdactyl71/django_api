@@ -1,7 +1,7 @@
 {% if latest_contact_list %}
     <ul>
     {% for contact in latest_contact_list %}
-        <li><a href="{% url 'detail' contact.id %}">{{ contact.email }}</a></li>
+        <li><a href="{% url 'contact_api:detail' contact.id %}">{{ contact.email }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
