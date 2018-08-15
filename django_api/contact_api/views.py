@@ -20,3 +20,32 @@ def detail(request, contact_id):
 def results(request, contact_id):
     response = "You're looking at the results of contact %s."
     return HttpResponse(response % contact_id)
+
+
+#playing around with JsonResponse
+
+from django.http import JsonResponse
+
+def get_all_contacts(request):
+    contacts = Contact.objects.all()
+    return JsonResponse({'contacts': contacts})
+
+def get_a_contact(request, contact_id):
+    contact = Contact.objects.filter(id=contact_id)
+    return JsonResponse({'contact': contact})
+
+def create_a_contact(request):
+    questions = Question.objects.all()
+    return JsonResponse({'questions': questions})
+
+def edit_a_contact(request):
+    questions = Question.objects.all()
+    return JsonResponse({'questions': questions})
+
+def delete_a_contact(request):
+    questions = Question.objects.all()
+    return JsonResponse({'questions': questions})
+
+def get_lists_of_contacts(request):
+    Question.objects.filter(question_text__startswith='What')
+    return JsonResponse({'questions': questions})
