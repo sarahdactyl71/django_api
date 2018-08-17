@@ -43,16 +43,16 @@ def get_a_contact(request, contact_id):
 
 def create_a_contact(request):
     contact = Contact.objects.all()
-    return JsonResponse({'contact': contact})
+    return JsonResponse({'contact': list(contact)})
 
 def edit_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
-    return JsonResponse({'contact': contact})
+    return JsonResponse({'contact': list(contact)})
 
 def delete_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
-    return JsonResponse({'contact': contact})
+    return JsonResponse({'contact': list(contact)})
 
 def get_lists_of_contacts(request):
-    Contact.objects.filter(question_text__startswith='What')
-    return JsonResponse({'contact': contact})
+    Contact.objects.filter(full_name__startswith='Some search param here').values()
+    return JsonResponse({'contact': list(contact)})
