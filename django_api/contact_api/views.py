@@ -53,6 +53,6 @@ def delete_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
-def get_lists_of_contacts(request):
-    contacts = Contact.objects.filter(full_name__startswith='Princess').values()
+def get_lists_of_contacts(request, full_name=None):
+    contacts = Contact.objects.filter(full_name__startswith=full_name).values()
     return JsonResponse({'contacts': list(contacts)})

@@ -15,5 +15,5 @@ urlpatterns = [
     # ex: /contact_api/1/get_a_contact/
     path('<int:contact_id>/get_a_contact/', views.get_a_contact, name='get_a_contact'),
     # ex: /contact_api/
-    path('get_lists_of_contacts/', views.get_lists_of_contacts, name='get_lists_of_contacts'),
+    path(regex='get_lists_of_contacts/(?P<full_name>\w{1,50})/$', views.get_lists_of_contacts, name='get_lists_of_contacts'),
 ]
