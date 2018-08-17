@@ -27,12 +27,12 @@ def results(request, contact_id):
 from django.http import JsonResponse
 
 def get_all_contacts(request):
-    contacts = Contact.objects.all()
-    return JsonResponse({'contacts': contacts})
+    contacts = Contact.objects.all().values()
+    return JsonResponse({'contacts': list(contacts)})
 
 def get_a_contact(request, contact_id):
-    contact = Contact.objects.filter(id=contact_id)
-    return JsonResponse({'contact': contact})
+    contact = Contact.objects.filter(id=contact_id).values()
+    return JsonResponse({'contact': list(contact)})
 
 def create_a_contact(request):
     questions = Question.objects.all()
