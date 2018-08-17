@@ -21,6 +21,13 @@ def results(request, contact_id):
     response = "You're looking at the results of contact %s."
     return HttpResponse(response % contact_id)
 
+# def contact_create(request, template_name='contacts/contact_form.html'):
+#     form = ContactsForm(request.POST or None)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('contacts:contact_list')
+#     return render(request, template_name, {'form': form})
+
 
 #playing around with JsonResponse
 
@@ -31,18 +38,18 @@ def get_all_contacts(request):
     return JsonResponse({'contacts': list(contacts)})
 
 def get_a_contact(request, contact_id):
-    contact = Contact.objects.filter(id=contact_id).values()
+    contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
 def create_a_contact(request):
     contact = Contact.objects.all()
     return JsonResponse({'contact': contact})
 
-def edit_a_contact(request, contact_id)):
+def edit_a_contact(request, contact_id):
     contact = Contact.objects.filter(id=contact_id).values()
     return JsonResponse({'contact': contact})
 
-def delete_a_contact(request, contact_id)):
+def delete_a_contact(request, contact_id):
     contact = Contact.objects.filter(id=contact_id).values()
     return JsonResponse({'contact': contact})
 
