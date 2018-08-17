@@ -39,11 +39,11 @@ def create_a_contact(request):
     return JsonResponse({'contact': contact})
 
 def edit_a_contact(request):
-    contact = Contact.objects.all()
+    contact = Contact.objects.filter(id=contact_id).values()
     return JsonResponse({'contact': contact})
 
 def delete_a_contact(request):
-    contact = Contact.objects.all()
+    contact = Contact.objects.filter(id=contact_id).values()
     return JsonResponse({'contact': contact})
 
 def get_lists_of_contacts(request):
