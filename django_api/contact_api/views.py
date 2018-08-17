@@ -35,17 +35,17 @@ def get_a_contact(request, contact_id):
     return JsonResponse({'contact': list(contact)})
 
 def create_a_contact(request):
-    questions = Question.objects.all()
-    return JsonResponse({'questions': questions})
+    contact = Contact.objects.all()
+    return JsonResponse({'contact': contact})
 
 def edit_a_contact(request):
-    questions = Question.objects.all()
-    return JsonResponse({'questions': questions})
+    contact = Contact.objects.all()
+    return JsonResponse({'contact': contact})
 
 def delete_a_contact(request):
-    questions = Question.objects.all()
-    return JsonResponse({'questions': questions})
+    contact = Contact.objects.all()
+    return JsonResponse({'contact': contact})
 
 def get_lists_of_contacts(request):
-    Question.objects.filter(question_text__startswith='What')
-    return JsonResponse({'questions': questions})
+    Contact.objects.filter(question_text__startswith='What')
+    return JsonResponse({'contact': contact})
