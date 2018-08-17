@@ -54,5 +54,5 @@ def delete_a_contact(request, contact_id):
     return JsonResponse({'contact': list(contact)})
 
 def get_lists_of_contacts(request):
-    Contact.objects.filter(full_name__startswith='Some search param here').values()
-    return JsonResponse({'contact': list(contact)})
+    contacts = Contact.objects.filter(full_name__startswith='Princess').values()
+    return JsonResponse({'contacts': list(contacts)})
