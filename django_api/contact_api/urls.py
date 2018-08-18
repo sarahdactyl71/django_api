@@ -10,6 +10,8 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     # ex: /contact_api/update
     path('<int:contact_id>/update/', views.update, name='update'),
+    # ex: /contact_api/delete
+    path('<int:contact_id>/delete/', views.delete, name='delete'),
     # ex: /contact_api/5/
     path('<int:contact_id>/', views.show, name='show'),
     # ex: /contact_api/get_all_contacts/

@@ -32,12 +32,19 @@ def create(request, template_name='contact_api/contact_form.html'):
     return render(request, template_name, {'form': form})
 
 def update(request, contact_id, template_name='contact_api/contact_form.html'):
-    post = get_object_or_404(Contact, pk=contact_id)
-    form = ContactsForm(request.POST or None, instance=post)
+    contact = get_object_or_404(Contact, pk=contact_id)
+    form = ContactsForm(request.POST or None, instance=contact)
     if form.is_valid():
         form.save()
         return redirect('contact_api:index')
     return render(request, template_name, {'form': form})
+
+def delete(request, contact_id, template_name='contact_api/contact_delete.html'):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    if request.method=='POST':
+        contact.delete()
+        return redirect('contact_api:index')
+    return render(request, template_name, {'object': contact})
 
 
 #playing around with JsonResponse
