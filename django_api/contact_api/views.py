@@ -44,7 +44,7 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
     if request.method=='POST':
         contact.delete()
         return redirect('contact_api:index')
-    return render(request, template_name, {'object': contact})
+    return render(request, template_name, {'contact': contact})
 
 
 #playing around with JsonResponse
