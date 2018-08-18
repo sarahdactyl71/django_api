@@ -8,6 +8,7 @@
 {% else %}
     <p>No contacts are available.</p>
 {% endif %}
+<a href="{% url 'contact_api:create' %}">Create a Contact</a>
 
 <h2>JSON Endpoints</h2>
 <a href="{% url 'contact_api:get_all_contacts' %}">All Contacts JSON</a>

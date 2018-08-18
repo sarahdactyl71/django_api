@@ -6,6 +6,8 @@ app_name = 'contact_api'
 urlpatterns = [
     # ex: /contact_api/
     path('', views.index, name='index'),
+    # ex: /contact_api/create
+    path('create/', views.create, name='create'),
     # ex: /contact_api/5/
     path('<int:contact_id>/', views.show, name='show'),
     # ex: /contact_api/get_all_contacts/
