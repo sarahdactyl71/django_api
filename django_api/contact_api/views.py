@@ -13,9 +13,9 @@ def index(request):
     context = {'latest_contact_list': latest_contact_list}
     return render(request, 'contact_api/index.html', context)
 
-def detail(request, contact_id):
+def show(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id)
-    return render(request, 'contact_api/detail.html', {'contact': contact})
+    return render(request, 'contact_api/show.html', {'contact': contact})
 
 # def contact_create(request, template_name='contacts/contact_form.html'):
 #     form = ContactsForm(request.POST or None)
