@@ -17,10 +17,6 @@ def detail(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id)
     return render(request, 'contact_api/detail.html', {'contact': contact})
 
-def results(request, contact_id):
-    response = "You're looking at the results of contact %s."
-    return HttpResponse(response % contact_id)
-
 # def contact_create(request, template_name='contacts/contact_form.html'):
 #     form = ContactsForm(request.POST or None)
 #     if form.is_valid():
