@@ -59,13 +59,16 @@ def get_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
-def create_a_contact(request):
-    r = requests.post('http://localhost:8000/contact_api/create/', data = {'key':'value'})
-    contact = Contact.objects.all()
-    return JsonResponse({'contact': list(contact)})
+def post(request, full_name, email, address, phone):
+    r = requests.post('http://localhost:8000/post', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
+    # import code; code.interact(local=dict(globals(), **locals()))
+    # contact = r.id
+    return JsonResponse(r)
+    # return JsonResponse({'contact': list(contact)})
 
 def edit_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
+    r = requests.put('http://localhost:8000/contact_api/create/', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
     return JsonResponse({'contact': list(contact)})
 
 def delete_a_contact(request, contact_id):
