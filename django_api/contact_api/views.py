@@ -71,20 +71,21 @@ def api_post(request):
     email = r['email']
     address = r['address']
     phone = r['phone']
+    # check for validation, uniqueness, contacts with same name, phone numbers beyond numbers etc.
     contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
     contact.save()
     saved_contact = Contact.objects.filter(pk=contact.id).values()
     return JsonResponse({'contact': list(saved_contact)})
 
-def edit_a_contact(request, contact_id):
+def api_edit(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     # r = requests.put('http://localhost:8000/contact_api/create/', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
     return JsonResponse({'contact': list(contact)})
 
-def delete_a_contact(request, contact_id):
+def api_delete(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
-def get_lists_of_contacts(request, full_name=None):
+def api_list(request, full_name=None):
     contacts = Contact.objects.filter(full_name__startswith=full_name).values()
     return JsonResponse({'contacts': list(contacts)})
