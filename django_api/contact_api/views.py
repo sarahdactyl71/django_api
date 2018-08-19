@@ -60,6 +60,7 @@ def get_a_contact(request, contact_id):
     return JsonResponse({'contact': list(contact)})
 
 def create_a_contact(request):
+    r = requests.post('http://localhost:8000/contact_api/create/', data = {'key':'value'})
     contact = Contact.objects.all()
     return JsonResponse({'contact': list(contact)})
 
