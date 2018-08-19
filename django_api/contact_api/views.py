@@ -4,6 +4,10 @@
 
 from django.http import HttpResponse
 
+import json
+
+from django.views.decorators.csrf import csrf_exempt
+
 from django.shortcuts import get_object_or_404, render, redirect
 
 from django.forms import ModelForm
@@ -59,16 +63,22 @@ def get_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
-def post(request, full_name, email, address, phone):
-    r = requests.post('http://localhost:8000/post', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
+@csrf_exempt
+def api_post(request):
+    r = json.loads(request.body)
     # import code; code.interact(local=dict(globals(), **locals()))
-    # contact = r.id
-    return JsonResponse(r)
-    # return JsonResponse({'contact': list(contact)})
+    full_name = r['full_name']
+    email = r['email']
+    address = r['address']
+    phone = r['phone']
+    contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
+    contact.save()
+    saved_contact = Contact.objects.filter(pk=contact.id).values()
+    return JsonResponse({'contact': list(saved_contact)})
 
 def edit_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
-    r = requests.put('http://localhost:8000/contact_api/create/', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
+    # r = requests.put('http://localhost:8000/contact_api/create/', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
     return JsonResponse({'contact': list(contact)})
 
 def delete_a_contact(request, contact_id):
