@@ -66,7 +66,6 @@ def get_a_contact(request, contact_id):
 @csrf_exempt
 def api_post(request):
     r = json.loads(request.body)
-    # import code; code.interact(local=dict(globals(), **locals()))
     full_name = r['full_name']
     email = r['email']
     address = r['address']
@@ -77,9 +76,19 @@ def api_post(request):
     saved_contact = Contact.objects.filter(pk=contact.id).values()
     return JsonResponse({'contact': list(saved_contact)})
 
+@csrf_exempt
 def api_edit(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
-    # r = requests.put('http://localhost:8000/contact_api/create/', data = {'full_name': full_name, 'email': email, 'address': address, 'phone': phone})
+    r = json.loads(request.body)
+    full_name = r['full_name']
+    email = r['email']
+    address = r['address']
+    phone = r['phone']
+    contact.full_name = full_name
+    contact.email = email
+    contact.address = address
+    contact.phone = phone
+    import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contact': list(contact)})
 
 def api_delete(request, contact_id):
