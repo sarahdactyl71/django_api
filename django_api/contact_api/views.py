@@ -56,11 +56,8 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
 from django.http import JsonResponse
 
 def api_index(request):
-    if user.is_authenticated:
-        contacts = Contact.objects.all().values()
-        return JsonResponse({'contacts': list(contacts)})
-    else:
-        return redirect('contact_api:index')
+    contacts = Contact.objects.all().values()
+    return JsonResponse({'contacts': list(contacts)})
 
 def get_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
@@ -68,15 +65,19 @@ def get_a_contact(request, contact_id):
 
 @csrf_exempt
 def api_post(request):
-    r = json.loads(request.body)
-    full_name = r['full_name']
-    email = r['email']
-    address = r['address']
-    phone = r['phone']
-    contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
-    contact.save()
-    saved_contact = Contact.objects.filter(pk=contact.id).values()
-    return JsonResponse({'contact': list(saved_contact)})
+    user = request.user
+    if user.is_authenticated:
+        r = json.loads(request.body)
+        full_name = r['full_name']
+        email = r['email']
+        address = r['address']
+        phone = r['phone']
+        contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
+        contact.save()
+        saved_contact = Contact.objects.filter(pk=contact.id).values()
+        return JsonResponse({'contact': list(saved_contact)})
+    else:
+        return HttpResponse("Please login to access this endpoint")
 
 @csrf_exempt
 def api_edit(request, contact_id):
