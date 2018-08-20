@@ -55,9 +55,12 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
 
 from django.http import JsonResponse
 
-def get_all_contacts(request):
-    contacts = Contact.objects.all().values()
-    return JsonResponse({'contacts': list(contacts)})
+def api_index(request):
+    if user.is_authenticated:
+        contacts = Contact.objects.all().values()
+        return JsonResponse({'contacts': list(contacts)})
+    else:
+        return redirect('contact_api:index')
 
 def get_a_contact(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
