@@ -24,4 +24,6 @@ urlpatterns = [
     path('api_post/', views.api_post, name='api_post'),
     # ex: /api_edit/
     path('<int:contact_id>/api_edit/', views.api_edit, name='api_edit'),
+    # ex: /api_delete/
+    path('<int:contact_id>/api_delete/', views.api_delete, name='api_delete'),
 ]

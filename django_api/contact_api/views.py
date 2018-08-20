@@ -85,11 +85,13 @@ def api_edit(request, contact_id):
     address = r['address']
     phone = r['phone']
     contact.update(full_name = full_name, email = email, address = address, phone = phone)
-    # import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contact': list(contact)})
 
+@csrf_exempt
 def api_delete(request, contact_id):
-    contact = Contact.objects.filter(pk=contact_id).values()
+    contact = Contact.objects.filter(pk=contact_id)
+    contact.delete()
+    # import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contact': list(contact)})
 
 def api_list(request, full_name=None):
