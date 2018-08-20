@@ -91,9 +91,10 @@ def api_edit(request, contact_id):
 def api_delete(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id)
     contact.delete()
-    # import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contact': list(contact)})
 
-def api_list(request, full_name=None):
+def api_list(request):
+    r = json.loads(request.body)
     contacts = Contact.objects.filter(full_name__startswith=full_name).values()
+    import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contacts': list(contacts)})
