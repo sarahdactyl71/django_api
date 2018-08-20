@@ -14,25 +14,6 @@ from django.forms import ModelForm
 
 from .models import Contact
 
-from django.contrib.auth import authenticate, login, logout
-
-def login(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return redirect('contact_api:index')
-        else:
-            HttpResponse("Sorry, that account has been disabled")
-    else:
-        HttpResponse("Invalid Login Creds")
-
-def logout_view(request):
-    logout(request)
-    return redirect('contact_api:login')
-
 class ContactsForm(ModelForm):
     class Meta:
         model = Contact
