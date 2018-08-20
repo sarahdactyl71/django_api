@@ -73,7 +73,6 @@ def api_post(request):
     email = r['email']
     address = r['address']
     phone = r['phone']
-    # check for validation, uniqueness, contacts with same name, phone numbers beyond numbers etc.
     contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
     contact.save()
     saved_contact = Contact.objects.filter(pk=contact.id).values()

@@ -1,4 +1,13 @@
 <h1>Contacts</h1>
+
+{% if user.is_authenticated %}
+     <li>User: {{ user.get_username }}</li>
+     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+   {% else %}
+     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+   {% endif %}
+  </ul>
+  
 {% if latest_contact_list %}
     <ul>
     {% for contact in latest_contact_list %}
@@ -11,4 +20,4 @@
 <a href="{% url 'contact_api:create' %}">Create a Contact</a>
 
 <h2>JSON Endpoints</h2>
-<a href="{% url 'contact_api:get_all_contacts' %}">All Contacts JSON</a>
+<a href="{% url 'contact_api:api_index' %}">All Contacts JSON</a>
