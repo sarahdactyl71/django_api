@@ -96,6 +96,6 @@ def api_delete(request, contact_id):
 @csrf_exempt
 def api_list(request):
     r = json.loads(request.body)
-    full_name = r['full_name']
-    contacts = Contact.objects.filter(full_name__startswith=full_name).values()
+    email = r['email']
+    contacts = Contact.objects.filter(email__startswith=email).values()
     return JsonResponse({'contacts': list(contacts)})
