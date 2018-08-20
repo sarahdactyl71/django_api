@@ -84,11 +84,8 @@ def api_edit(request, contact_id):
     email = r['email']
     address = r['address']
     phone = r['phone']
-    contact.full_name = full_name
-    contact.email = email
-    contact.address = address
-    contact.phone = phone
-    import code; code.interact(local=dict(globals(), **locals()))
+    contact.update(full_name = full_name, email = email, address = address, phone = phone)
+    # import code; code.interact(local=dict(globals(), **locals()))
     return JsonResponse({'contact': list(contact)})
 
 def api_delete(request, contact_id):
