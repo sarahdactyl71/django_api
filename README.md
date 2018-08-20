@@ -11,4 +11,6 @@
 ### Testing Endpoints
 I used Postman to test any enpoints that updated information.
 
-![Alt text](django_api/postman_screenshot.jpg?raw=true "Postman Screenshot")
+![Alt text](django_api/postman_screenshot.png?raw=true "Postman Screenshot")
+
+![alt text](https://raw.githubusercontent.com/sarahdactyl71/django_api/master/django_api/postman_screenshot.png)
