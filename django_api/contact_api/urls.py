@@ -18,8 +18,8 @@ urlpatterns = [
 
     # ex: /contact_api/api_index/
     path('api_index/', views.api_index, name='api_index'),
-    # ex: /contact_api/1/get_a_contact/
-    path('<int:contact_id>/get_a_contact/', views.get_a_contact, name='get_a_contact'),
+    # ex: /contact_api/1/api_show/
+    path('<int:contact_id>/api_show/', views.api_show, name='api_show'),
     # ex: /api_post/
     path('api_post/', views.api_post, name='api_post'),
     # ex: /api_edit/

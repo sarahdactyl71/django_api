@@ -6,7 +6,7 @@
     <li>{{ contact.phone }}</li>
 </ul>
 
-<a href="{% url 'contact_api:get_a_contact' contact.id %}">JSON response for Contact</a><br><br>
+<a href="{% url 'contact_api:api_show' contact.id %}">JSON response for Contact</a><br><br>
 <a href="{% url 'contact_api:update' contact.id %}">Update Contact</a><br><br>
 <a href="{% url 'contact_api:delete' contact.id %}">Delete Contact</a><br><br>
 

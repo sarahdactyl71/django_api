@@ -56,16 +56,22 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
 from django.http import JsonResponse
 
 def api_index(request):
-    contacts = Contact.objects.all().values()
-    return JsonResponse({'contacts': list(contacts)})
+    user = request.user
+    if user.is_authenticated:
+        contacts = Contact.objects.all().values()
+        return JsonResponse({'contacts': list(contacts)})
+    else:
+        return HttpResponse("Please login to access this endpoint")
 
-def get_a_contact(request, contact_id):
+def api_show(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
 
 @csrf_exempt
 def api_post(request):
     user = request.user
+    import code; code.interact(local=dict(globals(), **locals()))
+
     if user.is_authenticated:
         r = json.loads(request.body)
         full_name = r['full_name']
