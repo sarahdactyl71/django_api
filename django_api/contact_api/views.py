@@ -1,7 +1,3 @@
-# from django.shortcuts import render
-#
-# # Create your views here.
-
 from django.http import HttpResponse
 
 import json
@@ -56,12 +52,8 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
 from django.http import JsonResponse
 
 def api_index(request):
-    user = request.user
-    if user.is_authenticated:
-        contacts = Contact.objects.all().values()
-        return JsonResponse({'contacts': list(contacts)})
-    else:
-        return HttpResponse("Please login to access this endpoint")
+    contacts = Contact.objects.all().values()
+    return JsonResponse({'contacts': list(contacts)})
 
 def api_show(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
