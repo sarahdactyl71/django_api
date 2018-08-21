@@ -69,10 +69,10 @@ def api_show(request, contact_id):
 
 @csrf_exempt
 def api_post(request):
-    user = request.user
-    import code; code.interact(local=dict(globals(), **locals()))
-
-    if user.is_authenticated:
+    # import code; code.interact(local=dict(globals(), **locals()))
+    username = request.META['HTTP_USERNAME']
+    password = request.META['HTTP_PASSWORD']
+    if username == 'finnthehuman' and password == 'password':
         r = json.loads(request.body)
         full_name = r['full_name']
         email = r['email']
