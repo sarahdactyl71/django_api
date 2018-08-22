@@ -56,7 +56,6 @@ def api_post(request):
     creds = get_user_creds(request)
     if creds['username'] == settings.ALLOWED_USER and creds['password'] == settings.ALLOWED_PASS:
         info = parse_json_for_data(request)
-        # import code; code.interact(local=dict(globals(), **locals()))
         contact = Contact(full_name = info['full_name'],
                           email = info['email'],
                           address = info['address'],
