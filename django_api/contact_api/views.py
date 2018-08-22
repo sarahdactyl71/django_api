@@ -2,7 +2,6 @@ import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render, redirect
-from django.forms import ModelForm
 from .models import Contact, ContactsForm
 from django.conf import settings
 
@@ -52,16 +51,15 @@ def api_show(request, contact_id):
 
 @csrf_exempt
 def api_post(request):
-    username = request.META['HTTP_USERNAME']
-    password = request.META['HTTP_PASSWORD']
-    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
+    creds = get_user_creds(request)
+    if creds['username'] == settings.ALLOWED_USER and creds['password'] == settings.ALLOWED_PASS:
         info = parse_json_for_data(request)
         # import code; code.interact(local=dict(globals(), **locals()))
         contact = Contact(full_name = info['full_name'],
                           email = info['email'],
                           address = info['address'],
                           phone = info['phone'],
-                          last_edited_by = username)
+                          last_edited_by = creds['username'])
         contact.save()
         saved_contact = Contact.objects.filter(pk=contact.id).values()
         return JsonResponse({'contact': list(saved_contact)})
@@ -70,9 +68,8 @@ def api_post(request):
 
 @csrf_exempt
 def api_edit(request, contact_id):
-    username = request.META['HTTP_USERNAME']
-    password = request.META['HTTP_PASSWORD']
-    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
+    creds = get_user_creds(request)
+    if creds['username'] == settings.ALLOWED_USER and creds['password'] == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id).values()
         info = parse_json_for_data(request)
         contact.update(full_name = info['full_name'],
@@ -86,9 +83,8 @@ def api_edit(request, contact_id):
 
 @csrf_exempt
 def api_delete(request, contact_id):
-    username = request.META['HTTP_USERNAME']
-    password = request.META['HTTP_PASSWORD']
-    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
+    creds = get_user_creds(request)
+    if creds['username'] == settings.ALLOWED_USER and creds['password'] == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id)
         contact.delete()
         return JsonResponse({'contact': list(contact)})
@@ -110,3 +106,8 @@ def parse_json_for_data(request):
     address = r['address']
     phone = r['phone']
     return {'full_name': full_name, 'email': email, 'address': address, 'phone': phone}
+
+def get_user_creds(request):
+    username = request.META['HTTP_USERNAME']
+    password = request.META['HTTP_PASSWORD']
+    return {'username' : username, 'password': password}
