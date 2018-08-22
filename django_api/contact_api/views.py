@@ -3,13 +3,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render, redirect
 from django.forms import ModelForm
-from .models import Contact
+from .models import Contact, ContactsForm
 from django.conf import settings
-
-class ContactsForm(ModelForm):
-    class Meta:
-        model = Contact
-        fields = ['full_name', 'email', 'address', 'phone']
 
 def index(request):
     latest_contact_list = Contact.objects.order_by('-full_name')
