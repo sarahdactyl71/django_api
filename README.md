@@ -14,7 +14,7 @@
 3. api_post path: `http://localhost:8000/contact_api/api_post` This endpoint requires a body to be sent in with request.
 4. api_edit path: `http://localhost:8000/contact_api/api_edit` This endpoint requires a body to be sent in with request.
 5. api_delete path: `http://localhost:8000/contact_api/api_delete` This endpoint requires a body to be sent in with request.
-6. api_list path: `http://localhost:8000/contact_api/api_list` This endpoint requires a body to be sent in with request.
+6. api_list path: `http://localhost:8000/contact_api/api_list` This endpoint requires a body to be sent in with request. This endpoint will search contacts by email.
 
 To access some of the endpoints you must be a logged in, authenticated user.
 
@@ -24,8 +24,8 @@ Often there will be a body to the request and it should be formatted like so:
 
 ```
 {
-	"key": "value",
-	"key": "value"
+	"key1": "value1",
+	"key2": "value2"
 }
 ```
 

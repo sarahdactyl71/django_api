@@ -15,17 +15,17 @@ urlpatterns = [
     # ex: /contact_api/5/
     path('<int:contact_id>/', views.show, name='show'),
 
-
+    #URL PATTERNS SPECIFICALLY FOR API FUNCTIONALITY
     # ex: /contact_api/api_index/
     path('api_index/', views.api_index, name='api_index'),
-    # ex: /contact_api/1/api_show/
+    # ex: /contact_api/5/api_show/
     path('<int:contact_id>/api_show/', views.api_show, name='api_show'),
-    # ex: /api_post/
+    # ex: /contact_api/api_post/
     path('api_post/', views.api_post, name='api_post'),
-    # ex: /api_edit/
+    # ex: /contact_api/5/api_edit/
     path('<int:contact_id>/api_edit/', views.api_edit, name='api_edit'),
-    # ex: /api_delete/
+    # ex: /contact_api/5/api_delete/
     path('<int:contact_id>/api_delete/', views.api_delete, name='api_delete'),
-    # ex: /api_list/
+    # ex: /contact_api/api_list/
     path('api_list/', views.api_list, name='api_list'),
 ]
