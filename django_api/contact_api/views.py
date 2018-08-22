@@ -83,7 +83,7 @@ def api_edit(request, contact_id):
         email = r['email']
         address = r['address']
         phone = r['phone']
-        contact.update(full_name = full_name, email = email, address = address, phone = phone)
+        contact.update(full_name = full_name, email = email, address = address, phone = phone, last_edited_by = username)
         return JsonResponse({'contact': list(contact)})
     else:
         return HttpResponse("Not Authorized to access this endpoint")
