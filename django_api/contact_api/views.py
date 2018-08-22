@@ -1,13 +1,8 @@
-from django.http import HttpResponse
-
 import json
-
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from django.shortcuts import get_object_or_404, render, redirect
-
 from django.forms import ModelForm
-
 from .models import Contact
 
 class ContactsForm(ModelForm):
