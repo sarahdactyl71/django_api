@@ -59,14 +59,14 @@ def api_show(request, contact_id):
 def api_post(request):
     username = request.META['HTTP_USERNAME']
     password = request.META['HTTP_PASSWORD']
-    # import code; code.interact(local=dict(globals(), **locals()))
     if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
-        r = json.loads(request.body)
-        full_name = r['full_name']
-        email = r['email']
-        address = r['address']
-        phone = r['phone']
-        contact = Contact(full_name = full_name, email = email, address = address, phone = phone, last_edited_by = username)
+        info = parse_json_for_data(request)
+        # import code; code.interact(local=dict(globals(), **locals()))
+        contact = Contact(full_name = info['full_name'],
+                          email = info['email'],
+                          address = info['address'],
+                          phone = info['phone'],
+                          last_edited_by = username)
         contact.save()
         saved_contact = Contact.objects.filter(pk=contact.id).values()
         return JsonResponse({'contact': list(saved_contact)})
@@ -79,12 +79,12 @@ def api_edit(request, contact_id):
     password = request.META['HTTP_PASSWORD']
     if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id).values()
-        r = json.loads(request.body)
-        full_name = r['full_name']
-        email = r['email']
-        address = r['address']
-        phone = r['phone']
-        contact.update(full_name = full_name, email = email, address = address, phone = phone, last_edited_by = username)
+        info = parse_json_for_data(request)
+        contact.update(full_name = info['full_name'],
+                       email = info['email'],
+                       address = info['address'],
+                       phone = info['phone'],
+                       last_edited_by = username)
         return JsonResponse({'contact': list(contact)})
     else:
         return HttpResponse("Not Authorized to access this endpoint")
@@ -106,3 +106,12 @@ def api_list(request):
     email = r['email']
     contacts = Contact.objects.filter(email__startswith=email).values()
     return JsonResponse({'contacts': list(contacts)})
+
+
+def parse_json_for_data(request):
+    r = json.loads(request.body)
+    full_name = r['full_name']
+    email = r['email']
+    address = r['address']
+    phone = r['phone']
+    return {'full_name': full_name, 'email': email, 'address': address, 'phone': phone}
