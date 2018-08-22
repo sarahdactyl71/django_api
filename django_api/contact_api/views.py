@@ -37,14 +37,16 @@ def delete(request, contact_id, template_name='contact_api/contact_delete.html')
     return render(request, template_name, {'contact': contact})
 
 
-#playing around with JsonResponse
+#VIEWS FOR API ENDPOINTS
 
 from django.http import JsonResponse
 
+@csrf_exempt
 def api_index(request):
     contacts = Contact.objects.all().values()
     return JsonResponse({'contacts': list(contacts)})
 
+@csrf_exempt
 def api_show(request, contact_id):
     contact = Contact.objects.filter(pk=contact_id).values()
     return JsonResponse({'contact': list(contact)})
