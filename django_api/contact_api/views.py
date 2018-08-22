@@ -87,7 +87,7 @@ def api_delete(request, contact_id):
     if creds['username'] == settings.ALLOWED_USER and creds['password'] == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id)
         contact.delete()
-        return JsonResponse({'contact': list(contact)})
+        return HttpResponse("Contact has been deleted.")
     else:
         return HttpResponse("Not Authorized to access this endpoint")
 
