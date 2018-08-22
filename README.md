@@ -32,6 +32,7 @@ Often there will be a body to the request and it should be formatted like so:
 ![Alt text](postman_screenshot.png?raw=true "Postman Screenshot")
 
 For authenticating a user for endpoints that modify data, pass key values pairs into the header of the request like you see pictured below.
+The allowed credentials are:
 
 `username: finnthehuman`
 
