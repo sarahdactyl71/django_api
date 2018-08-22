@@ -70,7 +70,7 @@ def api_post(request):
         email = r['email']
         address = r['address']
         phone = r['phone']
-        contact = Contact(full_name = full_name, email = email, address = address, phone = phone)
+        contact = Contact(full_name = full_name, email = email, address = address, phone = phone, last_edited_by = username)
         contact.save()
         saved_contact = Contact.objects.filter(pk=contact.id).values()
         return JsonResponse({'contact': list(saved_contact)})
