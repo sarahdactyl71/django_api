@@ -75,24 +75,34 @@ def api_post(request):
         saved_contact = Contact.objects.filter(pk=contact.id).values()
         return JsonResponse({'contact': list(saved_contact)})
     else:
-        return HttpResponse("Please login to access this endpoint")
+        return HttpResponse("Not Authorized to access this endpoint")
 
 @csrf_exempt
 def api_edit(request, contact_id):
-    contact = Contact.objects.filter(pk=contact_id).values()
-    r = json.loads(request.body)
-    full_name = r['full_name']
-    email = r['email']
-    address = r['address']
-    phone = r['phone']
-    contact.update(full_name = full_name, email = email, address = address, phone = phone)
-    return JsonResponse({'contact': list(contact)})
+    username = request.META['HTTP_USERNAME']
+    password = request.META['HTTP_PASSWORD']
+    if username == 'finnthehuman' and password == 'password':
+        contact = Contact.objects.filter(pk=contact_id).values()
+        r = json.loads(request.body)
+        full_name = r['full_name']
+        email = r['email']
+        address = r['address']
+        phone = r['phone']
+        contact.update(full_name = full_name, email = email, address = address, phone = phone)
+        return JsonResponse({'contact': list(contact)})
+    else:
+        return HttpResponse("Not Authorized to access this endpoint")
 
 @csrf_exempt
 def api_delete(request, contact_id):
-    contact = Contact.objects.filter(pk=contact_id)
-    contact.delete()
-    return JsonResponse({'contact': list(contact)})
+    username = request.META['HTTP_USERNAME']
+    password = request.META['HTTP_PASSWORD']
+    if username == 'finnthehuman' and password == 'password':
+        contact = Contact.objects.filter(pk=contact_id)
+        contact.delete()
+        return JsonResponse({'contact': list(contact)})
+    else:
+        return HttpResponse("Not Authorized to access this endpoint")
 
 @csrf_exempt
 def api_list(request):
