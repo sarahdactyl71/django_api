@@ -1,9 +1,9 @@
-import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Contact, ContactsForm
 from django.conf import settings
+from .utils import parse_json_for_data, get_user_creds
 
 def index(request):
     latest_contact_list = Contact.objects.order_by('-full_name')
@@ -98,18 +98,3 @@ def api_list(request):
     email = r['email']
     contacts = Contact.objects.filter(email__startswith=email).values()
     return JsonResponse({'contacts': list(contacts)})
-
-#Helper methods
-
-def parse_json_for_data(request):
-    r = json.loads(request.body)
-    full_name = r['full_name']
-    email = r['email']
-    address = r['address']
-    phone = r['phone']
-    return {'full_name': full_name, 'email': email, 'address': address, 'phone': phone}
-
-def get_user_creds(request):
-    username = request.META['HTTP_USERNAME']
-    password = request.META['HTTP_PASSWORD']
-    return {'username' : username, 'password': password}
