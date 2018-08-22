@@ -76,7 +76,7 @@ def api_edit(request, contact_id):
                        email = info['email'],
                        address = info['address'],
                        phone = info['phone'],
-                       last_edited_by = username)
+                       last_edited_by = creds['username'])
         return JsonResponse({'contact': list(contact)})
     else:
         return HttpResponse("Not Authorized to access this endpoint")
@@ -98,6 +98,7 @@ def api_list(request):
     contacts = Contact.objects.filter(email__startswith=email).values()
     return JsonResponse({'contacts': list(contacts)})
 
+#Helper methods
 
 def parse_json_for_data(request):
     r = json.loads(request.body)
