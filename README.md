@@ -1,7 +1,8 @@
 # Contact API
 
 ### Requirements
-1. Python Version
+1. Python 3.7
+2. Django 2.1
 
 ### Running the Server
 1. clone this repository
