@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render, redirect
 from django.forms import ModelForm
 from .models import Contact
+from django.conf import settings
 
 class ContactsForm(ModelForm):
     class Meta:
@@ -58,8 +59,8 @@ def api_show(request, contact_id):
 def api_post(request):
     username = request.META['HTTP_USERNAME']
     password = request.META['HTTP_PASSWORD']
-    import code; code.interact(local=dict(globals(), **locals()))
-    if username == 'finnthehuman' and password == 'password':
+    # import code; code.interact(local=dict(globals(), **locals()))
+    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
         r = json.loads(request.body)
         full_name = r['full_name']
         email = r['email']
@@ -76,7 +77,7 @@ def api_post(request):
 def api_edit(request, contact_id):
     username = request.META['HTTP_USERNAME']
     password = request.META['HTTP_PASSWORD']
-    if username == 'finnthehuman' and password == 'password':
+    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id).values()
         r = json.loads(request.body)
         full_name = r['full_name']
@@ -92,7 +93,7 @@ def api_edit(request, contact_id):
 def api_delete(request, contact_id):
     username = request.META['HTTP_USERNAME']
     password = request.META['HTTP_PASSWORD']
-    if username == 'finnthehuman' and password == 'password':
+    if username == settings.ALLOWED_USER and password == settings.ALLOWED_PASS:
         contact = Contact.objects.filter(pk=contact_id)
         contact.delete()
         return JsonResponse({'contact': list(contact)})
